@@ -1,0 +1,133 @@
+# Data Science, niestacjonarne
+# Marcel Miłosz
+
+# Biblioteki
+import math
+import numpy
+
+# Wylosowane projekty
+# [2, 4]
+
+# ! Tutaj rozwiązuje projekt nr. 4 !
+
+## 4. Utwórz klasę Martix. Wykorzystaj całą wiedzę jaką posiadasz na temat macierzy. Zdefiniuj wszystkie znane Ci operacje.
+class Matrix():
+
+    def __init__(self, Symbol, A):
+        self.Symbol = Symbol
+        self.A = A
+        self.wypiszMacierz()
+
+    def wypiszMacierz(self):                            # Wypisuje stworzoną macierz
+        print(f"Macierz {self.Symbol}: {self.A}")
+
+    def zapiszWLiscie(self):
+        return(self.A)
+
+    def sprawdzCzyKwadratowa(self, B):                  # Sprawdzamy czy macierz jest kwadratowa (ilość wierszy = ilość kolumn)
+        iloscWierszy = len(self.A)
+        iloscKolumn = len(self.A[0])
+
+        self.czyKwadratowa = False
+
+        print(f"Macierz {self.Symbol} składa się z: Wierszy: {iloscWierszy} | Kolumn: {iloscKolumn}")
+
+        if iloscKolumn == iloscWierszy:
+            print("Macierz jest kwadratowa!")
+            self.czyKwadratowa = True
+        else: print("Macierz nie jest kwadratowa")
+
+    def DodajMacierz(self, B):                          # Dodawanie macierzy (B to druga macierz)
+        self.sprawdzCzyKwadratowa(B)
+
+        C = []                                          # Tworzy zmienną której przypisze odpowiednią liczbę 'wierszy' i 'kolumn'
+        for a in range(0, len(self.A)): C.append([])    # Jest to zmienna pomocnicza która będzie przechowywać finalną macierz
+
+        if self.czyKwadratowa:
+            for i in range(0, len(self.A)):
+                for j in range(0, len(self.A[i])):
+                    C[i].append(self.A[i][j] + B[i][j])
+
+            print(f"Suma: {self.A} + {B} = {C}")
+        else:
+            print("Macierz nie jest kwadratowa!")
+            return
+
+    def OdejmijMacierz(self, B):                        # Dodawanie macierzy (B to druga macierz)
+        self.sprawdzCzyKwadratowa(B)
+
+        C = []                                          # Tworzy zmienną której przypisze odpowiednią liczbę 'wierszy' i 'kolumn'
+        for a in range(0, len(self.A)): C.append([])    # Jest to zmienna pomocnicza która będzie przechowywać finalną macierz
+
+        if self.czyKwadratowa:
+            for i in range(0, len(self.A)):
+                for j in range(0, len(self.A[i])):
+                    C[i].append(self.A[i][j] - B[i][j])
+
+            print(f"Różnica: {self.A} - {B} = {C}")
+        else:
+            print("Macierz nie jest kwadratowa!")
+            return
+
+    def PomnozMacierz(self, B):
+        iloscKolumnA = len(self.A)
+        iloscWierszyB = len(B[0])
+
+        C = []                                          # Tworzy zmienną której przypisze odpowiednią liczbę 'wierszy' i 'kolumn'
+        for a in range(0, len(self.A)):                 # Jest to zmienna pomocnicza która będzie przechowywać finalną macierz
+            C.append([])
+            for b in range(0, len(self.A[a])):
+                C[a].append(0)
+
+        print(C)
+
+        print(f"Liczba kolumn pierwszej macierzy: {iloscKolumnA}")
+        print(f"Liczba wierszy drugiej macierzy: {iloscWierszyB}")
+
+        if iloscKolumnA != iloscWierszyB: return "Liczba kolumn != liczbie wierszy!"
+
+        for i in range(len(self.A)):
+            for j in range(len(B[0])):
+                for k in range(len(B)):
+                    C[i][j] += self.A[i][k] * B[k][j]
+        print(f"{self.A} * {B} = {C}")
+
+
+    def TransponujMacierz(self):
+        C = []                                          # Tworzy zmienną której przypisze odpowiednią liczbę 'wierszy' i 'kolumn'
+        for a in range(0, len(self.A)):
+            C.append([])
+            for b in range(0, len(self.A[a])):
+                C[a].append(0)
+
+        print(f"Macierz przed: {self.A}")
+
+        for i in range(len(C)):
+            for j in range(len(C[0])):
+                C[j][i] = self.A[i][j]
+
+        print(f"Macierz Transponowana: {C}")
+
+    def WyznacznikMacierzy(self):                       # Metoda do obliczania wyznacznika macierzy
+        print(f"Wyznacznik macierzy: {round(numpy.linalg.det(self.A), 2)}")
+        return round(numpy.linalg.det(self.A), 2)
+
+    def OdwrotnaMacierz(self):                          # Metoda do obliczania macierzy odwrotnej
+        print(f"Macierz początkowa: {self.A}")
+        print(f"Macierz odwrócona: \n{numpy.linalg.inv(self.A)}")
+        return numpy.linalg.inv(self.A)
+
+M1 = Matrix("A", [[4, 3], [2, 1]])              # Tworzymy obiekt M1 (Symbol Macierzy, Macierz(jako lista dwuwymiarowa))
+M2 = Matrix("B", [[2, 1], [3, 4]])              # Tworzymy obiekt M2 (Symbol Macierzy, Macierz(jako lista dwuwymiarowa))
+# print()
+# M1.DodajMacierz(M2.zapiszWLiscie())           # Dodajemy dwie macierze (M1 + (w argumencie podajemy drugą np. M2.zapiszWLiscie()))
+# print()
+# M1.OdejmijMacierz(M2.zapiszWLiscie())         # Odejmujemy dwie macierze (M1 + (w argumencie podajemy drugą np. M2.zapiszWLiscie()))
+# print()
+# M1.PomnozMacierz(M2.zapiszWLiscie())          # Mnożymy dwie macierze (M1 + (w argumencie podajemy drugą np. M2.zapiszWLiscie()))
+# print()
+# M1.TransponujMacierz()                        # Transponujemy macierz (zwraca stransponowaną macierz)
+# print()
+# M2.WyznacznikMacierzy()                       # Obliczamy wyznacznik (zwraca wyznacznik)
+# print()
+# M1.OdwrotnaMacierz()                          # Odwracamy macierz (zwraca macierz odwrotną do początkowej)

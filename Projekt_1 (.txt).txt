@@ -1,0 +1,56 @@
+# Data Science, niestacjonarne
+# Marcel Mi³osz
+
+# Biblioteki
+import math
+
+# Wylosowane projekty
+# [2, 4]
+
+# ! Tutaj rozwi¹zuje projekt nr. 2 !
+
+## 2. Utwórz klasê Vector2D. Wykorzystaj ca³¹ wiedzê jak¹ posiadasz na temat wektorów na p³aszczyŸnie. Zdefiniuj wszystkie znane Ci operacje.
+class Vector2D():
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def zapiszWektor(self):                         # Zapisuje wektor w postaci listy
+        return [self.x, self.y]
+
+    def pomnozPrzezLiczbe(self, n):                 # Pomno¿ przez liczbê (podajemy n)
+        Wynik = [(self.x * n), (self.y * n)]
+        print(f"Pomno¿enie przez {n} * [{self.x}, {self.y}] = {Wynik}")
+
+    def dodajWektor(self, B):                       # Dodaj wektor (B to jest drugi wektor)
+        A = [self.x, self.y]
+        Wynik = [A[0] + B[0], A[1] + B[1]]
+        print(f"Suma {A} + {B} = {Wynik}")
+
+    def odejmijWektor(self, B):                     # Odejmij wektor (B to jest drugi wektor)
+        A = [self.x, self.y]
+        Wynik = [A[0] - B[0], A[1] - B[1]]
+        print(f"Ró¿nica {A} - {B} = {Wynik}")
+
+    def iloczynSkalarny(self, B):                   # Oblicz iloczyn skalarny
+        A = [self.x, self.y]
+        Wynik = A[0] * B[0] + A[1] * B[1]
+        print(f"Iloczyn skalarny {A} * {B} = {Wynik}")
+
+    def obliczDlugoscWektora(self):                 # Oblicz d³ugoœæ wektora
+        Wynik = math.sqrt((self.x ** 2) + (self.y ** 2))
+        print(f"D³ugoœæ [{self.x}, {self.y}] = {round(Wynik, 2)}")
+
+
+V1 = Vector2D(2, 3)                                 # Stowrzenie wektora 2D (2, 3)
+V2 = Vector2D(5, -2)                                # Stworzenie wektora 2D (5, -2)
+
+print("Wektor A: " + str(V1.zapiszWektor()))        # Metoda zapiszWektor() zwraca listê np. (2, 3) --> [2, 3]
+print("Wektor B: " + str(V2.zapiszWektor()))        # Metoda zapiszWektor() zwraca listê np. (5, -2) --> [5, -2]
+
+# V1.dodajWektor(V2.zapiszWektor())                   # Metoda dodaj¹ca dwa wektory (V1 + (W argumencie podajemy drugi jako lista dwuwymiarowa))
+# V1.odejmijWektor(V2.zapiszWektor())                 # Metoda odejmuj¹ca dwa wektory (V1 + (W argumencie podajemy drugi jako lista dwuwymiarowa))
+# V1.iloczynSkalarny(V2.zapiszWektor())               # Metoda iloczynu skalarnego dwóch wektorów (V1 + (W argumencie podajemy drugi jako lista dwuwymiarowa))
+# V1.pomnozPrzezLiczbe(5)                             # Metoda która mno¿y wektor przez liczbê (skalar)
+# V1.obliczDlugoscWektora()                           # Metoda licz¹ca d³ugoœæ wektora
